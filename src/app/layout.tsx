@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 import { UIProviders } from '@/providers/nextui';
+import QueryProvider from '@/providers/react-query';
 import { cn } from '@nextui-org/react';
 
 import { generalSans, inter } from '@/lib/fonts';
@@ -20,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(generalSans.variable, inter.variable)}>
-        <UIProviders>{children}</UIProviders>
+        <QueryProvider>
+          <UIProviders>{children}</UIProviders>
+        </QueryProvider>
       </body>
     </html>
   );
