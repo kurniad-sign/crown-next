@@ -4,12 +4,6 @@
 
 @layer base {
   :root {
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
-
     --grey-50: #f9fafb;
     --grey-75: #f7f9fc;
     --grey-100: #f0f2f5;
@@ -93,14 +87,12 @@
     --office-brown-700: #645d5d;
     --office-brown-800: #514a4a;
     --office-brown-900: #3e3838;
-
-    --radius: 0.5rem;
   }
 }
 
 @layer base {
   body {
-    @apply font-general-sans relative flex min-h-dvh w-full flex-col overflow-x-hidden bg-background text-foreground;
+    @apply rayna-ui font-general-sans relative flex min-h-dvh w-full flex-col overflow-x-hidden bg-background text-foreground;
   }
 
   img {

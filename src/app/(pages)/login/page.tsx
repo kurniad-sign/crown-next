@@ -1,14 +1,31 @@
-import { login, signup } from './actions';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
+
+import { Heading, Text } from '@/components/atom';
+import { LogoLight } from '@/components/icon';
+
+import { FormLogin } from './FormLogin';
 
 export default function LoginPage() {
   return (
-    <form>
-      <label htmlFor="email">Email:</label>
-      <input id="email" name="email" type="email" required />
-      <label htmlFor="password">Password:</label>
-      <input id="password" name="password" type="password" required />
-      <button formAction={login}>Log in</button>
-      <button formAction={signup}>Sign up</button>
-    </form>
-  )
+    <div className="flex h-dvh w-full flex-col items-center justify-center bg-primary-50">
+      <div className="flex w-full min-w-60 max-w-[464px] flex-col items-center justify-center gap-y-10">
+        <Card className="w-full gap-y-4 p-8">
+          <CardHeader className="flex-col gap-4">
+            <LogoLight />
+            <div className="space-y-1 text-center">
+              <Heading component="h2" variant="title-4">
+                Sign in to your account
+              </Heading>
+              <Text size="small" className="text-office-brown-600">
+                Use your email to sign in to your dashboard
+              </Text>
+            </div>
+          </CardHeader>
+          <CardBody>
+            <FormLogin />
+          </CardBody>
+        </Card>
+      </div>
+    </div>
+  );
 }
