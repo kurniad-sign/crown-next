@@ -20,7 +20,7 @@ export default function MainLayout({
           <UserDropdown />
         </NavbarContent>
       </Navbar>
-      <main className="relative shrink-0 grow">{children}</main>
+      <main className="relative shrink-0 grow bg-gray-100">{children}</main>
     </div>
   );
 }

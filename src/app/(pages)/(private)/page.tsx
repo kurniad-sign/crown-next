@@ -1,20 +1,28 @@
-import { Button } from '@nextui-org/button';
+import { Card, CardBody } from '@nextui-org/card';
 
-import { Heading, Text } from '@/components/atom';
+import { Heading } from '@/components/atom';
+import { EmptyStates } from '@/components/molecul/EmptyStates';
+
+import emptyIllustration from '@/assets/images/empty-state-task.svg';
+import { CreateStores } from './components/CreateStore';
 
 export default function Home() {
   return (
-    <div>
-      <Heading component="h1" variant="title-1">
-        Hello World
+    <div className="mt-10 max-w-6xl px-6 lg:mx-auto lg:p-0">
+      <Heading component="h1" variant="title-3">
+        Your Store
       </Heading>
-      <Text component="span">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit rem quis
-        repudiandae enim optio facere at aspernatur? Atque, vitae, reiciendis
-        accusamus labore animi laudantium placeat sint totam asperiores facilis
-        mollitia.
-      </Text>
-      <Button color="primary">Sample</Button>
+      <Card className="mt-9 p-6" shadow="sm">
+        <CardBody>
+          <EmptyStates
+            imageSrc={emptyIllustration}
+            title="No store to show"
+            description="Looks like you don’t have stores for now. Add new stores to get started."
+          >
+           <CreateStores />
+          </EmptyStates>
+        </CardBody>
+      </Card>
     </div>
   );
 }
