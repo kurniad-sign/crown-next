@@ -1,6 +1,9 @@
+import { Suspense } from 'react';
+
 import { Heading } from '@/components/atom';
 
 import StoreList from './components/StoreList';
+import { StoreSkeleton } from './components/StoreSkeleton';
 
 export default function Home() {
   return (
@@ -8,7 +11,9 @@ export default function Home() {
       <Heading component="h1" variant="title-3">
         Your Store
       </Heading>
-      <StoreList />
+      <Suspense fallback={<StoreSkeleton />}>
+        <StoreList />
+      </Suspense>
     </div>
   );
 }
