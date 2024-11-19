@@ -24,7 +24,11 @@ import { Text } from '@/components/atom';
 import { StoresDataType } from '@/lib/database/schemas/stores';
 import { storeSchema, StoreSchema } from '@/lib/validations/store';
 
-export function CreateStores() {
+interface CreateStoreProps {
+  store: StoresDataType[];
+}
+
+export function CreateStores({ store }: CreateStoreProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [openStoreId, setOpenStoreId] = useState(false);
   const router = useRouter();
@@ -72,16 +76,30 @@ export function CreateStores() {
 
   return (
     <>
-      <div className="mt-4">
-        <Button
-          color="primary"
-          startContent={<Plus size={16} />}
+      {!store.length ? (
+        <div className="mt-4">
+          <Button
+            color="primary"
+            startContent={<Plus size={16} />}
+            onPress={onOpen}
+          >
+            Add Store
+          </Button>
+        </div>
+      ) : (
+        <Card
+          isPressable
+          shadow="none"
+          className="h-48 border-[1.5px] border-dashed border-gray-300"
           onPress={onOpen}
         >
-          Add Store
-        </Button>
-      </div>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
+          <CardBody className="flex-row items-center justify-center gap-2">
+            <Plus size={14} />
+            <Text size="small">Create Store</Text>
+          </CardBody>
+        </Card>
+      )}
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
         <ModalContent>
           {(onClose) => (
             <form
