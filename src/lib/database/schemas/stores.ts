@@ -1,3 +1,4 @@
+import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { integer, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const stores = pgTable('stores', {
@@ -9,3 +10,6 @@ export const stores = pgTable('stores', {
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 });
+
+export type StoresDataType = InferSelectModel<typeof stores>
+export type StoresInsertType = InferInsertModel<typeof stores>

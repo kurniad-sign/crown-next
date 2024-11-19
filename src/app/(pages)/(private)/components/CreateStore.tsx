@@ -12,16 +12,22 @@ import {
   ModalHeader,
   useDisclosure,
 } from '@nextui-org/modal';
+import { useMutation } from '@tanstack/react-query';
+import axios, { AxiosResponse } from 'axios';
 import { Plus, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import { Text } from '@/components/atom';
+import { StoresDataType } from '@/lib/database/schemas/stores';
 import { storeSchema, StoreSchema } from '@/lib/validations/store';
 
 export function CreateStores() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [openStoreId, setOpenStoreId] = useState(false);
+  const router = useRouter();
 
   const {
     control,
@@ -46,8 +52,22 @@ export function CreateStores() {
     }
   }, [isOpen, reset]);
 
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['create-store'],
+    mutationFn: async (payload: StoreSchema) =>
+      await axios.post('/api/stores', payload),
+    onSuccess: ({ data }: AxiosResponse<StoresDataType>) => {
+      console.log(data);
+      router.replace(`/${data.storeId}`);
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Error when creating store');
+    },
+  });
+
   const onSubmitStore: SubmitHandler<StoreSchema> = (payload) => {
-    console.log(payload);
+    mutate(payload);
   };
 
   return (
@@ -78,13 +98,14 @@ export function CreateStores() {
                   render={({ field }) => (
                     <Input
                       autoFocus
+                      isRequired
                       label="Store name"
                       labelPlacement="outside"
                       placeholder="Enter your store name"
                       variant="bordered"
-                      isRequired
                       isInvalid={!!errors.name}
                       errorMessage={errors.name && errors.name.message}
+                      isDisabled={isPending}
                       {...field}
                     />
                   )}
@@ -97,6 +118,7 @@ export function CreateStores() {
                       size="sm"
                       variant="light"
                       className="absolute right-2 top-2 z-[100]"
+                      isDisabled={isPending}
                       onPress={handleCloseStoreId}
                     >
                       <X size={14} className="text-gray-600" />
@@ -117,6 +139,7 @@ export function CreateStores() {
                             labelPlacement="outside"
                             placeholder="Your store ID"
                             variant="bordered"
+                            isDisabled={isPending}
                             {...field}
                           />
                         )}
@@ -128,16 +151,22 @@ export function CreateStores() {
                     variant="bordered"
                     size="sm"
                     onPress={handleOpenStoreId}
+                    isDisabled={isPending}
                   >
                     Store ID
                   </Button>
                 )}
               </ModalBody>
               <ModalFooter>
-                <Button variant="flat" onPress={onClose}>
+                <Button variant="flat" isDisabled={isPending} onPress={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" color="primary">
+                <Button
+                  type="submit"
+                  color="primary"
+                  isLoading={isPending}
+                  isDisabled={isPending}
+                >
                   Save
                 </Button>
               </ModalFooter>
