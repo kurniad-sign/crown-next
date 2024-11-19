@@ -11,9 +11,19 @@ import {
 } from '@nextui-org/react';
 import { ChevronsUpDown, LogOut, Settings } from 'lucide-react';
 
+import { createClient } from '@/lib/supabase/client';
+import { useRouter } from 'next/navigation';
 import { Text } from '../atom';
 
 export function UserDropdown() {
+  const router = useRouter()
+  async function handleLogout() {
+    const supabase = await createClient()
+    
+    await supabase.auth.signOut()
+    router.replace('/login')
+  }
+
   return (
     <Dropdown placement='top-start'>
       <DropdownTrigger>
@@ -41,6 +51,7 @@ export function UserDropdown() {
           key="logout"
           color="danger"
           startContent={<LogOut size={16} strokeWidth={2.5} />}
+          onPress={handleLogout}
         >
           <Text component="span" weight="medium">
             Logout
