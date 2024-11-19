@@ -1,6 +1,10 @@
 import { nextui } from '@nextui-org/react';
 import type { Config } from 'tailwindcss';
 
+
+
+
+
 export default {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -135,7 +139,7 @@ export default {
               900: '#591000',
             },
             focus: '#f56630',
-            divider: '#d0d5dd',
+            divider: '#98a2b3',
           },
           layout: {
             borderWidth: {

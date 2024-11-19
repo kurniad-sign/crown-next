@@ -1,7 +1,7 @@
 import { tv } from '@nextui-org/react';
 
 export const textVariant = tv({
-  base: 'leading-6 font-medium',
+  base: 'leading-6 font-[450]',
   variants: {
     align: {
       left: 'text-left',
