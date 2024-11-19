@@ -2,21 +2,22 @@
 
 import { useRouter } from 'next/navigation';
 import {
-  Avatar,
+  Card,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownSection,
   DropdownTrigger,
+  User,
 } from '@nextui-org/react';
-import { LogOut } from 'lucide-react';
+import { ChevronsUpDown, LogOut, Settings } from 'lucide-react';
 
-import { Text } from '@/components/atom';
 import { createClient } from '@/lib/supabase/client';
 
-export function UserDropdown() {
-  const router = useRouter();
+import { Text } from '../atom';
 
+export function CardUserDropdown() {
+  const router = useRouter();
   async function handleLogout() {
     const supabase = await createClient();
 
@@ -25,20 +26,26 @@ export function UserDropdown() {
   }
 
   return (
-    <Dropdown placement="bottom-end">
+    <Dropdown placement="top-start">
       <DropdownTrigger>
-        <Avatar
-          as="button"
-          showFallback
-          name="John Doe"
-          src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-        />
+        <Card
+          isPressable
+          className="w-full flex-row items-center justify-between bg-background p-2 shadow-none hover:bg-gray-200"
+        >
+          <User
+            name="John Doe"
+            description="johndoe@gmail.com"
+            avatarProps={{
+              src: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
+            }}
+          />
+          <ChevronsUpDown size={16} />
+        </Card>
       </DropdownTrigger>
       <DropdownMenu aria-label="User menu">
         <DropdownSection showDivider>
-          <DropdownItem key="user" className="h-14 gap-1">
-            <Text weight="semibold">Signed in as</Text>
-            <Text className="text-gray-500">zoey@example.com</Text>
+          <DropdownItem key="settings" startContent={<Settings size={16} />}>
+            Settings
           </DropdownItem>
         </DropdownSection>
         <DropdownItem

@@ -10,7 +10,7 @@ import {
 import { Navbar, NavbarContent } from '@nextui-org/navbar';
 import { Moon, Sun } from 'lucide-react';
 
-import { SearchInput } from '../molecul/SearchInput';
+import { SearchInput } from '../../components/molecul/SearchInput';
 
 export function Header() {
   return (
@@ -20,7 +20,7 @@ export function Header() {
       maxWidth="xl"
       className="border-b border-b-gray-300"
     >
-      <NavbarContent justify='start' className='max-w-[300px]'>
+      <NavbarContent justify="start" className="max-w-[300px]">
         <SearchInput />
       </NavbarContent>
       <NavbarContent justify="end">

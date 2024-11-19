@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Input } from '@nextui-org/react';
 import { Search } from 'lucide-react';

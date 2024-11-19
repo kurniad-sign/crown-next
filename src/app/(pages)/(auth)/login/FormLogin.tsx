@@ -1,13 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -50,7 +50,7 @@ export function FormLogin() {
   });
 
   const onSubmitLogin: SubmitHandler<LoginSchemaType> = (data) => {
-    mutate(data)
+    mutate(data);
   };
 
   return (
@@ -88,9 +88,9 @@ export function FormLogin() {
                   aria-label="toggle password visibility"
                 >
                   {isVisible ? (
-                    <EyeOff className="text-default-400 pointer-events-none text-2xl" />
+                    <EyeOff className="pointer-events-none text-2xl text-default-400" />
                   ) : (
-                    <Eye className="text-default-400 pointer-events-none text-2xl" />
+                    <Eye className="pointer-events-none text-2xl text-default-400" />
                   )}
                 </button>
               }

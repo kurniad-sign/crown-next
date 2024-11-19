@@ -71,9 +71,7 @@
         "stores_store_id_unique": {
           "name": "stores_store_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "store_id"
-          ]
+          "columns": ["store_id"]
         }
       },
       "policies": {},

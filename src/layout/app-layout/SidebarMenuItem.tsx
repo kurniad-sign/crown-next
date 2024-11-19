@@ -1,9 +1,9 @@
-import { cn } from '@nextui-org/react';
-import { Home, PieChart } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { cn } from '@nextui-org/react';
+import { Home, PieChart } from 'lucide-react';
 
-import { Text } from '../atom';
+import { Text } from '../../components/atom';
 
 interface SideMenuItem {
   key: string;
@@ -28,7 +28,7 @@ export function SidebarMenuItem() {
           label: 'Home',
           to: '/',
           isActive: pathname === '/',
-          icon:  <Home size={14} strokeWidth={2} className="mr-2" />
+          icon: <Home size={14} strokeWidth={2} className="mr-2" />,
         },
         {
           label: 'Dashboard',

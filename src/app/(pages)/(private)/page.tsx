@@ -14,7 +14,7 @@ export default function Home() {
         accusamus labore animi laudantium placeat sint totam asperiores facilis
         mollitia.
       </Text>
-      <Button color='primary'>Sample</Button>
+      <Button color="primary">Sample</Button>
     </div>
   );
 }
