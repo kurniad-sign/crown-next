@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import { Heading } from '@/components/atom';
 
-import StoreList from './components/StoreList';
+import { StoreList } from './components/StoreList';
 import { StoreSkeleton } from './components/StoreSkeleton';
 
 export default function Home() {

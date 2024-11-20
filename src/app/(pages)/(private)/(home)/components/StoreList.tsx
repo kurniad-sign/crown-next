@@ -12,7 +12,7 @@ import emptyIllustration from '@/assets/images/empty-state-task.svg';
 import { CreateStores } from './CreateStore';
 import { StoreDeleteButton } from './StoreDeleteButton';
 
-export default async function StoreList() {
+export async function StoreList() {
   const storeList = await getStores();
 
   if (!storeList.length) {
