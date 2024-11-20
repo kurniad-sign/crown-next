@@ -22,7 +22,7 @@ import toast from 'react-hot-toast';
 import { StoreResponseData } from '@/app/api/[[...route]]/stores';
 import { Text } from '@/components/atom';
 import { StoresDataType } from '@/lib/database/schemas/stores';
-import { honoClient } from '@/lib/hono-client';
+import { addStore } from '@/lib/hono/queries/stores';
 import { storeSchema, StoreSchema } from '@/lib/validations/store';
 
 interface CreateStoreProps {
@@ -60,9 +60,7 @@ export function CreateStores({ store }: CreateStoreProps) {
   const { mutate, isPending } = useMutation({
     mutationKey: ['create-store'],
     mutationFn: async (payload: StoreSchema) => {
-      const requestStore = await honoClient.api.stores.$post({
-        json: payload,
-      });
+      const requestStore = await addStore(payload)
 
       return (await requestStore.json()) as StoreResponseData;
     },

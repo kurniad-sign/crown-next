@@ -14,7 +14,7 @@ import { Trash } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import { Text } from '@/components/atom';
-import { honoClient } from '@/lib/hono-client';
+import { deleteStore } from '@/lib/hono/queries/stores';
 import { useRouter } from 'next/navigation';
 
 type StoreDeleteButtonProps = {
@@ -28,10 +28,7 @@ export function StoreDeleteButton(props: StoreDeleteButtonProps) {
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['delete-store'],
-    mutationFn: (id: string) =>
-      honoClient.api.stores[':id'].$delete({
-        param: { id },
-      }),
+    mutationFn: async (id: string) => await deleteStore(id),
     onSuccess: () => {
       onClose();
       router.refresh();

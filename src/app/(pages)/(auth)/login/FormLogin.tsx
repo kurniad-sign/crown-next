@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
-import { honoClient } from '@/lib/hono-client';
+import { honoClient } from '@/lib/hono/client';
 import { loginSchema, LoginSchemaType } from '@/lib/validations/login';
 
 export function FormLogin() {
@@ -35,8 +35,7 @@ export function FormLogin() {
       await honoClient.api.auth.login.$post({
         json: payload,
       }),
-    onSuccess: (data) => {
-      console.log(data.json());
+    onSuccess: () => {
       router.replace('/');
     },
     onError: (error) => {

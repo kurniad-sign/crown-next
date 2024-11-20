@@ -15,7 +15,43 @@ export type StoreResponseData = {
   statusCode: number;
 };
 
+export type StoresResponseData = {
+  data: StoresDataType[]
+}
+
 const app = new Hono()
+  .get('/', async (context) => {
+    const supabase = await createClient();
+    
+    try {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (!user || error) {
+        return context.json(
+          {
+            error,
+            message: 'User not found',
+            statusCode: 404,
+          },
+          404
+        );
+      }
+
+      const storesData = await db.query.stores.findMany({
+        where: ({ userId }, { eq } ) => eq(userId, user.id) 
+      })
+
+      return context.json({
+        data: storesData
+      })
+    } catch(error) {
+      console.error(error);
+      return context.body('Internal Server Error', 500);
+    }
+  })
   .post('/', zValidator('json', storeSchema), async (context) => {
     const supabase = await createClient();
     try {
