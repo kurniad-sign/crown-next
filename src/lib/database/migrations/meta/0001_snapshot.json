@@ -1,6 +1,6 @@
 {
-  "id": "652a0177-bdbb-47ef-948f-edbc2457e5bb",
-  "prevId": "849fc2da-e8d3-4c35-ba62-97f9a17057e8",
+  "id": "9f894aab-dae3-4aa7-a961-2f82dff7df0f",
+  "prevId": "c9f26088-d9e7-40cf-b1c7-cb9729956386",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -13,7 +13,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "'uuid_generate_v4()'"
+          "default": "uuid_generate_v4()"
         },
         "name": {
           "name": "name",
@@ -31,7 +31,7 @@
           "name": "store_id",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "store_logo_url": {
           "name": "store_logo_url",

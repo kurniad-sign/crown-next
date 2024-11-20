@@ -1,5 +1,5 @@
 {
-  "id": "849fc2da-e8d3-4c35-ba62-97f9a17057e8",
+  "id": "c9f26088-d9e7-40cf-b1c7-cb9729956386",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,20 +10,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "stores_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "default": "gen_random_uuid()"
         },
         "name": {
           "name": "name",
@@ -35,7 +25,7 @@
           "name": "user_id",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "store_id": {
           "name": "store_id",
@@ -53,14 +43,14 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         }
       },
@@ -71,7 +61,9 @@
         "stores_store_id_unique": {
           "name": "stores_store_id_unique",
           "nullsNotDistinct": false,
-          "columns": ["store_id"]
+          "columns": [
+            "store_id"
+          ]
         }
       },
       "policies": {},
