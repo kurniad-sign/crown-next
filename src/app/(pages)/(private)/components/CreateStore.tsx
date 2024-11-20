@@ -13,15 +13,16 @@ import {
   useDisclosure,
 } from '@nextui-org/modal';
 import { useMutation } from '@tanstack/react-query';
-import axios, { AxiosResponse } from 'axios';
 import { Plus, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
+import { StoreResponseData } from '@/app/api/[[...route]]/stores';
 import { Text } from '@/components/atom';
 import { StoresDataType } from '@/lib/database/schemas/stores';
+import { honoClient } from '@/lib/hono-client';
 import { storeSchema, StoreSchema } from '@/lib/validations/store';
 
 interface CreateStoreProps {
@@ -58,11 +59,16 @@ export function CreateStores({ store }: CreateStoreProps) {
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['create-store'],
-    mutationFn: async (payload: StoreSchema) =>
-      await axios.post('/api/stores', payload),
-    onSuccess: ({ data }: AxiosResponse<StoresDataType>) => {
-      console.log(data);
-      router.replace(`/${data.storeId}`);
+    mutationFn: async (payload: StoreSchema) => {
+      const requestStore = await honoClient.api.stores.$post({
+        json: payload,
+      });
+
+      return (await requestStore.json()) as StoreResponseData;
+    },
+    onSuccess: (response) => {
+      console.log(response.data);
+      router.replace(`/${response.data.storeId}`);
     },
     onError: (error) => {
       console.error(error);

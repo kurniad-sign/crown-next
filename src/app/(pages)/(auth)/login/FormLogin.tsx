@@ -1,24 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { z } from 'zod';
 
-const loginSchema = z.object({
-  email: z.string().email({ message: 'Email address is invalid' }).min(1),
-  password: z
-    .string()
-    .min(4, { message: 'Password must be at least 4 characters' }),
-});
-
-type LoginSchemaType = z.infer<typeof loginSchema>;
+import { honoClient } from '@/lib/hono-client';
+import { loginSchema, LoginSchemaType } from '@/lib/validations/login';
 
 export function FormLogin() {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,9 +31,12 @@ export function FormLogin() {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (value: LoginSchemaType) => axios.post('/api/login', value),
+    mutationFn: async (payload: LoginSchemaType) =>
+      await honoClient.api.auth.login.$post({
+        json: payload,
+      }),
     onSuccess: (data) => {
-      console.log(data.data);
+      console.log(data.json());
       router.replace('/');
     },
     onError: (error) => {
