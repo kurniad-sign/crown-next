@@ -1,8 +1,6 @@
-import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Chip } from '@nextui-org/chip';
 import { format } from 'date-fns';
-import { Trash } from 'lucide-react';
 import Link from 'next/link';
 
 import { Text } from '@/components/atom';
@@ -12,6 +10,7 @@ import { getStores } from '@/lib/database/queries/stores';
 import emptyIllustration from '@/assets/images/empty-state-task.svg';
 
 import { CreateStores } from './CreateStore';
+import { StoreDeleteButton } from './StoreDeleteButton';
 
 export default async function StoreList() {
   const storeList = await getStores();
@@ -37,18 +36,14 @@ export default async function StoreList() {
       <CreateStores store={storeList} />
       {storeList.map((store) => (
         <Card
-          as={Link}
           key={store.id}
           shadow="sm"
-          className="h-48"
-          href={`/${store.storeId}`}
+          className="h-48 z-10"
         >
-          <CardHeader>
-            <Button isIconOnly variant="light" color="danger" size="sm">
-              <Trash size={14} />
-            </Button>
+          <CardHeader className="z-[99]">
+           <StoreDeleteButton id={store.id} />
           </CardHeader>
-          <CardBody className="pt-8">
+          <CardBody as={Link} className="pt-8" href={`/${store.storeId}`}>
             <Chip size="sm" variant="flat">
               <Text component="span" size="xsmall" className="text-gray-600">
                 {store.storeId}
